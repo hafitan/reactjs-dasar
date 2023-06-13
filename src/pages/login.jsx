@@ -7,7 +7,7 @@ export default function login() {
   return (
     <>
       <div className="flex justify-center items-center min-h-screen bg-[url('../public/images/bg.jpg')] bg-cover">
-        <AuthLayout title="login" desc="silahkan isi">
+        <AuthLayout title="login" desc="silahkan isi" type='login'>
             <Login></Login>
             <p className="text-sm mt-4 text-center">
               Dont have an account?{' '}

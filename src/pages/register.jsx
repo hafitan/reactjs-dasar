@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 export default function register() {
   return (
     <>
-        <AuthLayout title="Register" desc="silahkan isi">
+        <AuthLayout title="Register" desc="silahkan isi" type='register'>
             <Register></Register>
             <p className="text-sm mt-4 text-center">
               Have an account?{' '}
