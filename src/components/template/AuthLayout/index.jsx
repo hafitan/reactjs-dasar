@@ -13,7 +13,7 @@ export default function AuthLayout(props) {
                     {children}
 
                     {/* cara pertama routing conditional rendering */}
-                    <p className='text-sm mt-5 text-center'>
+                    {/* <p className='text-sm mt-5 text-center'>
                         {type === 'login' ? 'ga punya akun? ' : 'udah punya akun? '}
                         {type === 'login' && (
                             <Link to='/register' className='text-blue-500 font-bold'>Daftar</Link>
@@ -21,10 +21,10 @@ export default function AuthLayout(props) {
                         {type === 'register' && (
                             <Link to='/login' className='text-blue-500 font-bold'>Masuk</Link>
                             )}
-                    </p>
+                    </p> */}
 
                     {/* cara kedua */}
-                    {type === 'login' ? (
+                    {/* {type === 'login' ? (
                         <p className='text-sm mt-5 text-center'>
                             ga punya akun?{' '}
                             <Link to='/register' className='text-blue-500 font-bold'>Daftar</Link>
@@ -34,7 +34,7 @@ export default function AuthLayout(props) {
                             sudah punya akun?{' '}
                             <Link to='/login' className='text-blue-500 font-bold'>Masok</Link>
                         </p>
-                    )}
+                    )} */}
 
                     {/* <Navigasi type={type} /> */}
                 </div>
