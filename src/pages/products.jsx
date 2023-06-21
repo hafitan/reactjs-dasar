@@ -130,16 +130,6 @@ export default function ProductPage() {
               }
             </tbody>            
           </table>
-          <table>
-            <thead>
-              {cart.map((i) => {                
-                <tr>
-                  <th>Jumlah total</th>
-                  <th></th>
-                </tr>
-              })}
-            </thead>
-          </table>
         </div>
       </div>
     </>
