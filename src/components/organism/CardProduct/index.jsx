@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '../../atom/Button'
+import { Link } from 'react-router-dom'
 
 export default function CardProduct(props) {
     const {children} = props
@@ -13,12 +14,12 @@ export default function CardProduct(props) {
 }
 
 const Header = (props) => {
-    const {image} = props
+    const {image, id} = props
     return (
         <div className="flex justify-center items-center p-4">
-            <a href="#">
+            <Link to={`/products/${id}`}>
                 <img src={image} alt="gambar" className="rounded-t-lg w-[250px] h-[250px] " />
-            </a>
+            </Link>
         </div>
     )
 }
