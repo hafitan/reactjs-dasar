@@ -4,6 +4,7 @@ import Navabr from '../components/template/Navbar'
 import Button from '../components/atom/Button'
 import { getProduct } from '../services/product.service'
 import { getUsername } from '../services/auth.service'
+import { useSelector } from 'react-redux'
 
 // const data = [
 //   {
@@ -27,26 +28,29 @@ export default function ProductPage() {
 
   // state / useState = data/penyimpanan/memori yang dipake buat menghandle/menangani komponen yang berubah2
   const [data, setData] = useState([])
-  const [cart, setCart] = useState([])
+  // const [cart, setCart] = useState([])
+  // ngambil data pake react-redux
+  const cart = useSelector((state) => state.cart.data)
   const [totalPrice, setTotalPrice] = useState([])
   const [username, setUsername] = useState([])
+
 
   useEffect(() => {
     const token = localStorage.getItem('token')
     // cek token, klo ga ada token bakal diarahin ke login
-    if(token) {
+    if (token) {
       setUsername(getUsername(token))
-    }else{
+    } else {
       window.location.href = '/'
     }
   }, [])
 
-  useEffect(() => {
-    setCart(JSON.parse(localStorage.getItem('cart')) || [])
-  }, [])
+  // useEffect(() => {
+  //   setCart(JSON.parse(localStorage.getItem('cart')) || [])
+  // }, [])
 
   useEffect(() => {
-    if(data.length > 0 && cart.length > 0){
+    if (data.length > 0 && cart.length > 0) {
       const sum = cart.reduce((acc, item) => {
         const products = data.find((products) => products.id == item.id)
         console.log('ini item', item)
@@ -58,28 +62,28 @@ export default function ProductPage() {
     }
   }, [cart, data])
 
-  const handleAddToCart = (id) => {
-    // setCart([
-    // cara manual ngeSet/definisiin data ke dalam state
-    // ...cart,
-    // {
-    //   // name: 'new name',
-    //   // qty: 1,
-    // }
-    // ])
-    if (cart.find((item) => item.id === id)) {
-      // dia akan mapping dan membongkar itemnya
-      setCart(cart.map((item) => (item.id === id ? { ...item, qty: item.qty + 1 } : item)))
-    } else {
-      // kalo datanya cuma 1 maka cma akan di set satu
-      setCart([...cart, { id, qty: 1 }])
-    }
-  }
+  // const handleAddToCart = (id) => {
+  //   // setCart([
+  //   // cara manual ngeSet/definisiin data ke dalam state
+  //   // ...cart,
+  //   // {
+  //   //   // name: 'new name',
+  //   //   // qty: 1,
+  //   // }
+  //   // ])
+  //   if (cart.find((item) => item.id === id)) {
+  //     // dia akan mapping dan membongkar itemnya
+  //     setCart(cart.map((item) => (item.id === id ? { ...item, qty: item.qty + 1 } : item)))
+  //   } else {
+  //     // kalo datanya cuma 1 maka cma akan di set satu
+  //     setCart([...cart, { id, qty: 1 }])
+  //   }
+  // }
 
-  
+
   // get data using useEffect
   useEffect(() => {
-    getProduct ((data) => {
+    getProduct((data) => {
       setData(data)
     })
   }, [])
@@ -103,7 +107,7 @@ export default function ProductPage() {
                     <h1 className='text-md font-semibold'>Apakah anda ingin keluar?</h1>
                   </div>
                   <div className="flex gap-x-4">
-                    <Button onClick={() => {setLogout(false)}}>No</Button>
+                    <Button onClick={() => { setLogout(false) }}>No</Button>
                     <Button onClick={() => {
                       // localStorage.removeItem('token')  //hapus di localstorage sesuai key
                       localStorage.clear() //hapus di localstorage semuanya
@@ -116,7 +120,7 @@ export default function ProductPage() {
           </CardProduct>
         </div>
       )}
-      <Navabr onClick={() => {setLogout(true)}} username={username} />
+      <Navabr onClick={() => { setLogout(true) }} username={username} />
 
       <div className="flex  mt-10">
         <div className="flex flex-wrap h-full gap-6 w-full">
@@ -126,9 +130,9 @@ export default function ProductPage() {
                 <CardProduct key={product.id}>
                   <CardProduct.Header id={product.id} image={product.image} />
                   <CardProduct.Body title={product.title}>
-                      {product.description}
+                    {product.description}
                   </CardProduct.Body>
-                  <CardProduct.Footer harga={product.price} id={product.id} handleAddToCart={handleAddToCart} />
+                  <CardProduct.Footer price={product.price} id={product.id} />
                 </CardProduct>
               ))
             }
@@ -155,7 +159,7 @@ export default function ProductPage() {
                 cart.map((item) => {
                   // mencari id dalam var data, kalo id yang di data sama dengan id yang ada di cart maka ambil product nya
                   const datas = data.find((data) => data.id === item.id);
-                  if(!datas){
+                  if (!datas) {
                     // console.log('data tidak ada')
                     return null
                   }
@@ -170,14 +174,14 @@ export default function ProductPage() {
                     </tr>
                   )
                 })
-                
-              }              
-            <tr className='w-full  font-bold'>
+
+              }
+              <tr className='w-full  font-bold'>
                 <td className='' colSpan={3}>Total price: </td>
                 <td className=''>{totalPrice}</td>
-              </tr>   
-            </tbody>  
-                   
+              </tr>
+            </tbody>
+
           </table>
         </div>
       </div>

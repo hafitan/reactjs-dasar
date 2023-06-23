@@ -1,31 +1,33 @@
 import React from 'react'
 import Button from '../../atom/Button'
 import { Link } from 'react-router-dom'
+import { addToCart } from '../../../redux/slices/cartSlice'
+import { useDispatch } from 'react-redux'
 
 export default function CardProduct(props) {
-    const {children} = props
-  return (
-    <>
-        <div className="h-fit rounded-lg bg-gradient-to-r from-violet-500 via-blue-500 to-sky-500 p-1 shadow-xl">
-            <div className="w-full h-fit max-w-xs bg-white rounded-lg">{children}</div>
-        </div>
-    </>
-  )
+    const { children } = props
+    return (
+        <>
+            <div className="h-fit rounded-lg bg-gradient-to-r from-violet-500 via-blue-500 to-sky-500 p-1 shadow-xl">
+                <div className="w-full h-fit max-w-xs bg-white rounded-lg">{children}</div>
+            </div>
+        </>
+    )
 }
 
 const Header = (props) => {
-    const {image, id} = props
+    const { image, id } = props
     return (
         <div className="flex justify-center items-center p-4">
             <Link to={`/products/${id}`}>
-                <img src={image} alt="gambar" className="rounded-t-lg w-[250px] h-[250px] " />
+                <img src={image} alt="gambar" className="rounded-t-lg w-[150px] h-[150px] " />
             </Link>
         </div>
     )
 }
 
 const Body = (props) => {
-    const {title, children} = props
+    const { title, children } = props
     return (
         <>
             <div className="px-5 h-60">
@@ -37,14 +39,15 @@ const Body = (props) => {
 }
 
 const Footer = (props) => {
-    const {harga, id, handleAddToCart} = props
+    const { price, id, handleToCart } = props
+    const dispatch = useDispatch()
     return (
         <>
             <div className="flex justify-center items-center">
-                <p>harga : {harga}</p>
+                <p>harga : {price}</p>
             </div>
             <div className=" px-4 mt-2">
-                <button color='bg-blue-500 ' onClick={() => handleAddToCart(id)} className='w-full mb-2 rounded-lg text-white p-2 bg-blue-600'>Add to Cart</button>
+                <button color='bg-blue-500 ' onClick={() => dispatch(addToCart({ id, qty: 1 }))} className='w-full mb-2 rounded-lg text-white p-2 bg-blue-600'>Add to Cart</button>
             </div>
         </>
     )
